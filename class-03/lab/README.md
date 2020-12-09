@@ -4,7 +4,7 @@ Dynamic API Phase 2: Perform CRUD Operations on a database
 
 ## Before you begin
 
-1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md)
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
 1. Create a new repository called `basic-api-server`
 1. Work in a new branch called `dev`, created from `main`
 1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
@@ -123,4 +123,4 @@ Your server must be deployed to Heroku. Please note the deployed URL in your REA
 
 ## Assignment Submission Instructions
 
-Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
