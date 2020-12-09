@@ -39,7 +39,7 @@ At heroku, we're going to setup 2 deployments. One for your dev branch and one f
 You've been provided a working demo server by your instructor. Get this code working locally. Note that while you are permitted to simply copy the files, it's better if you create the server from scratch, typing the lines of code in the demo provide. Build up your muscle memory
 
 1. Initialize your app -- `npm init -y`
-1. Install your dependencies -- `npm i dotconfig express jest`
+1. Install your dependencies -- `npm i dotenv express jest`
 1. Create the files and folders required for the application
 1. Create the correct content in the files
 1. Test your server -- `npm test`

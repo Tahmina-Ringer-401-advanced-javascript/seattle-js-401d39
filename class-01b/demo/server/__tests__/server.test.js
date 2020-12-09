@@ -11,6 +11,14 @@ describe('API Server', () => {
     expect(response.status).toEqual(404);
   })
 
+  // it('handles invalid requests', () => {
+  //   request.get('/foo')
+  //     .then(response => {
+  //       expect(response.status).toEqual(404);
+  //     })
+  // })
+
+
   it('handles errors', async () => {
     const response = await request.get('/bad');
     expect(response.status).toEqual(500);

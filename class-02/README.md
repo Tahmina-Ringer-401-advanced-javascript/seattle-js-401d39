@@ -22,7 +22,11 @@ Express Server Mechanics: Routing, Middleware, and Approaches to Testing
 
 ## Today's Outline
 
-<!-- To Be Completed By Instructor -->
+1. Code Review
+1. Review request.query, request.params, request.body
+1. Dive into Middleware
+1. Build an API
+1. Write our own tests!
 
 ## Notes
 
