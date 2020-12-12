@@ -4,7 +4,7 @@ Create your first native phone/device application using React Native, tapping in
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 Create a new GitHub repository titled with your course code and this lab number (i.e. js-401n15-class-10)
 

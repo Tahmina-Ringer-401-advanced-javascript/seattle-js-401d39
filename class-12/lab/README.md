@@ -8,7 +8,7 @@ The intent here is to build the data services that would drive full dashboard wh
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'socket.io' and continue to work in your 'caps' repository.
 
@@ -132,4 +132,4 @@ Assuming your small api server runs on port 3001, the form in the test app will 
 
 ## Assignment Submission Instructions
 
-Refer to the the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for the complete lab submission process and expectations
+Refer to the the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for the complete lab submission process and expectations

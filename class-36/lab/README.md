@@ -4,7 +4,7 @@
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 Create a UML diagram of the **Virtual Store** architecture on a whiteboard before you start
 
@@ -79,4 +79,4 @@ Testing for the core behaviors (user stories) of the application is required
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting React Apps Lab Submission Instructions](../../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting React Apps Lab Submission Instructions](../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations

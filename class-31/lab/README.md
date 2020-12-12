@@ -6,7 +6,7 @@ In this initial phase, we're going to have to start by converting a legacy appli
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 Analyze the provided `starter_code` and create a UML diagram of the **To Do** app on a whiteboard before you start the conversion process
 
@@ -53,4 +53,4 @@ The following user/developer stories detail the major functionality for this pha
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting React Apps Lab Submission Instructions](../../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting React Apps Lab Submission Instructions](../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations

@@ -6,7 +6,7 @@ This begins the first of a 4-part build of an application called `Notesy`. Today
 
 ## Before you begin
 
-1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md)
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
 1. Create a new repository for this project, called `notes` and work in a branch called `class-01`, created from `master`
 1. Following completion of this assignment, you may merge this branch back into your `master` branch.
 
@@ -82,4 +82,4 @@ Use the following files/structure
 
 In Canvas, submit a link to your completed `README.md` file from today's working branch according to standards.
 
- Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for a review of the complete lab submission process and expectations
+ Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for a review of the complete lab submission process and expectations

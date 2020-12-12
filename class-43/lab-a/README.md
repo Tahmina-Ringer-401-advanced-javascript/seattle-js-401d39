@@ -6,7 +6,7 @@ For content driven sites, such as a Blog or a news site, where its important to 
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 ## Getting Started
 

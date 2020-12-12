@@ -6,6 +6,8 @@ const app = express();
 const notFoundHandler = require('../error-handler/404');
 const errorHandler = require('../error-handler/500');
 
+const validate = require('./validate');
+
 // body parser that accepts json
 app.use(express.json());
 
@@ -138,6 +140,15 @@ app.delete('api/v1/food/:id', (req, res, next) => {
   db = db.filter(food => food.id !== parseInt(id));
   res.status(204).send('ok');
 })
+
+app.get('/person', validate, (req, res) => {
+  let person = {
+    name: req.query.name
+  }
+
+  res.status(200).json(person);
+})
+
 
 
 

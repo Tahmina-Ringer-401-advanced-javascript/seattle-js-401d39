@@ -6,7 +6,7 @@ In this lab, we'll be refining our persistence layer by implementing a CRUD inte
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'collection' and continue to work in your 'notes' repository.
 
@@ -58,4 +58,4 @@ As this is the last build day for the **notes** application, finalize it.
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations

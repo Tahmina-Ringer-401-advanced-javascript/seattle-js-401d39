@@ -6,7 +6,7 @@ In this final phase, we'll be requiring that users be logged in, in order to see
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'auth' and continue to work in your 'todo' repository.
 
@@ -98,4 +98,4 @@ Once you have a working practice app, extract the Login Context and relevant com
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting React Apps Lab Submission Instructions](../../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting React Apps Lab Submission Instructions](../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations

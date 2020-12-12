@@ -1,23 +1,32 @@
 # LAB: Access Control
 
-Authentication Server Phase 4: Role Based Access Control
+Authentication Server Phase 3: Role Based Access Control
 
 Being able to login is great. But controlling access at a more granular level is vital to creating a scalable system. In this lab, you will implement Role Based Access Control (RBAC) using an Access Control List (ACL), allowing to not only restrict access to routes for valid users, but also based on the individual permissions we give each user.
 
+Over the course of the previous 2 modules, you have separately created an `auth-server` and an `api-server` ... In this lab, you will be integrating those 2 servers to create a single, authenticated API server.
+
+> **NOTE** - You will be using this server as a base for all future work in this course. Other servers will be merged with it, and we'll be using it to serve data to our front-end applications later in the course. Completion of this final lab is essential to your future work being integrated
+
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Create a UML diagram of the authentication system on a whiteboard before you start
 
-1. Continue working in your `auth-server` repository, in a new branch called `class-14`, created from `master`
-1. Following completion of this assignment, you may merge this branch back into your `master` branch.
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
+1. Create a new repository called `auth-api`
+1. Copy the files from within the `starter-code` folder of your class repository into your new repo as a starting point
+1. Work in a new branch called `dev`, created from `main`
+1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
+   - You will deploy from your `main` branch to a new app at Heroku
+   - You will add a link to the PR that you merged in your README for grading purposes
 
 ## Business Requirements
 
 Refer to the [Authentication System Overview](../../apps-and-libraries/auth-server/README.md) for a complete review of the application, including Business and Technical requirements along with the development roadmap.
 
-## Phase 4 Requirements
+## Phase 3 Requirements
 
-In the final phase, the new requirement is to expand the restrictive capabilities of our routes. As it currently stands, a valid user with a valid token is able to access a route. We need to add an optional and additional layer of control, allowing us to ensure that based on the users' role in our organization, we can further restrict/allow access.
+In this final phase, the new requirement is to extend the restrictive capabilities of our routes to our API, implementing a fully functional, authenticated and authorized API Server using the latest coding techniques
 
 Specifically, we want to make the following restrictions:
 
@@ -28,100 +37,66 @@ Specifically, we want to make the following restrictions:
 
 Routes that end up performing those actions in our API/Database need to be protected by both a valid user and that user's permissions
 
-Today's **new** user stories:
-
-- As a user, I want to present my token instead of my username and password so that I can access protected routes more securely
-- As a user, I expect not to be able to access routes that my access level does not allow me to see
-- As a developer, I want to protect any route on my server by requiring a valid token to access it
-- As a developer, I want to create a rule by which I can restrict access to a route by naming a capability
-- As a developer, I want to protect any route on my server by checking the users' capabilities against the route's rules
-
-> **Note:** All previous requirements and user stories are still required. This Phase is intended to add functionality to our existing authentication server.
-
 ## Technical Requirements / Notes
 
-In Phase 3, we will need to implement a new user/data flow
+Begin with the 2 servers provided to you in the `starter-code` folder.
 
-1. Add middleware to any route, in conjunction with **Bearer Token Validation**, in order to specify which capability is required to access
-1. Following token validation, check permissions
-1. If the user's role grants them a capability that matches what is declared on the route, grant access
-   - If not - return an error message and deny access
+- `api-server` is a fully functional API server that performs CRUD operations via REST
+- `auth-server` is a fully functional Auth server, capable of adding users, logging users in, and providing middleware that can be used to protect any route
 
-Noted here are the relevant changes you'll need to make to your server to complete Phase 4:
+### Task 1: Combine these 2 servers into a single server
 
-- The users model will need a list of roles, and for each role a list of capabilities that the role allows
-- Middleware that is added to each route which validates a user based on their token
-- Middleware (curried) that accepts a capability as an argument, that can query the user model to validate capability
-- A new method in the users model to check a specified capability agains the role that the user is assigned to
+- Your server should respond to the following routes:
+  - POST `/signup` to create a user
+  - POST `/signin` to login a user and receive a token
+  - GET `/secret` should require a valid bearer token
+  - GET `/users` should require a valid token and "delete" permissions
 
-### "Protect" routes by restricting access without a valid token AND a specific capability.
+**NOTE:** You will have some duplicated files and functionality between the 2 servers. Eliminate the waste and end with a single running server with all current routes functional
 
-As the purpose behind authorization is to restrict access to our system to valid users with proper permissions. Let's begin by creating a route on the server that we can use to prove our system will work on a larger scale. If we can prove that we can protect one route, we can protect any route the same way.
+### Task 2: Create a new set of "Protected" API routes
 
-The idea here will be to create multiple middleware methods that run in series. Either one of them could throw an error and prevent access, allowing us to first check for a valid user and then their capabilities
+Restrict access without a valid token AND a specific capability.
 
-In your `extra-routes.js` module, add new routes designed to simulate CRUD operations
+- Create a new set of routes (V2) within the server
+  - V2 API Routes (`/api/v2/...`) must now be protected with the proper permissions based on user capability, using Bearer Authentication and an ACL
+    - `app.get(...)` should require authentication only, no specific roles
+    - `app.post(...)` should require both a bearer token and the `create` capability
+    - `app.put(...)` should require both a bearer token and the `update` capability
+    - `app.patch(...)` should require both a bearer token and the `update` capability
+    - `app.delete(...)` should require both a bearer token and the `delete` capability
 
-- Protect each of them with the bearer middleware we've already built **as well as** the middleware you're about to write
-- For simplicity's sake, have each route simply respond with "Route /read worked" (change the text for each)
-- ... we're only wiring these up as a means of ensuring that our authorization system works well
-- `app.get('/read', bearerAuth, permissions('read'), ...)`
-- `app.post('/add', bearerAuth, permissions('create'), ...)`
-- `app.put('/change', bearerAuth, permissions('update'), ...)`
-- `app.delete('/remove', bearerAuth, permissions('delete'), ...)`
+### Task 3: Apply best practices and quality engineering
 
-> Note: until you create the **permissions** middleware module itself these routes will not work
+- Full Test Coverage
+- Well executed UML and WRRC Diagrams
+- Polished and Complete Developer Friendly README.md at the root of your repo
 
-### Permissions Middleware Module
+### Clean and Test
 
-Once we have a route (or more) that we'd like to restrict access to, implement the actual middleware method that'll compare the user's permissions against the permission required to access the route
+The provided server works to support the above requirements, but it has a few principle shortcomings that you must address
 
-1. Create a new middleware module called `authorize.js` in your auth module's middleware folder
-1. This should be required by new `extra-routes` router and attached inline to all of your routes as described
-
-- This middleware will need to do the following:
-  - Take note of the capability being identified by the route
-    - **Note** -- this is a middleware call that takes a parameter, meaning your middleware method must be "curried"
-  - Read the value of the `Bearer` Token in the `authorization` header
-  - Invoke a method in the user model to check that the user's role has the permission called for
-  - If the user has the capability, use `next()` to continue on to the actual route handler
-  - If not, the middleware should invoke the error handler by calling `next()` with an error
-
-### Users Model
-
-Declare, in your users model, an object or a `set()` that declares the roles we must support, and a list of capabilities that each role supports. You'll use this as the mechanism to validate users.
-
-We'll need a new method in the Users model to check the users permission against the capability the middleware is asking for.
-
-- Create a new method, perhaps called `.can(permission)` that will accept a capability
-  - Validate this against the permissions on the user, granted by the Role they are assigned to
-  - Otherwise, return an error
-
-### Stretch Goal
-
-Implement your ACL using a separate model called "roles" populated as a **virtual field** in the users table
-
-- If you are going to use a virtual join...
-  - You will need to create, roles and capabilities permissions in a new collection called 'roles' in  your mongoose database before anything will work properly
-  - There are a few ways to do this
-    - Create a route that lets you create a role (similar to a POST in the API) and create them one at a time
-    - Create a route that builds the roles collection using an array
-    - Manually create records in the mongo database from the CLI
-
-### Testing
-
-You will need to seed your database with multiple users, each with unique "roles" that match those you've created in your users model. Your users model has a "role" column declared already, so create users that now have values in that field ('user', 'admin', etc) to match your role definitions.
-
-Then, as you're testing your system, you can login as each user, and then use the returned token to try and then hit the different routes. As each user type, you should be able to hit some of the routes, but be denied others, based on your role setup.
-
-- **httpie**: http post :3000/secret "Authorization:Bearer TOKENSTRING"
-- **Postman** or **Insomnia**:  Set authorization header with Bearer TOKENSTRING"
-- Chrome directly, using the Headers extension
-
-For your automated tests:
-
-- Add test coverage to the auth tests to assert that each user type has the correct permissions
-- Each user type can only see (i.e. get a 200 response) from routes that their capabilities allow them to
+1. Convert any method that's using promise syntax (`.then()`) to use the more modern `async`/`await` syntax
+1. Ensure that all route handler methods, middleware methods, model methods are properly catching and responding to errors.
+   - Do you have `try/catch` in place wherever you can?
+   - Are you logging full errors to the console?
+   - Are you giving properly formatted errors to the browser in the response?
+1. Write a suite of tests that make the following assertions, at minimum:
+   - AUTH Routes
+     - POST /signup creates a new user and sends an object with the user and the token to the client
+     - POST /signin with basic authentication headers logs in a user and sends an object with the user and the token to the client
+   - V1 (Unauthenticated API) routes
+     - POST /api/v1/:model adds an item to the DB and returns an object with the added item
+     - GET /api/v1/:model returns a list of :model items
+     - GET /api/v1/:model/ID returns a single item by ID
+     - PUT /api/v1/:model/ID returns a single, updated item by ID
+     - DELETE /api/v1/:model/ID returns an empty object. Subsequent GET for the same ID should result in nothing found
+   - V2 (Authenticated API Routes)
+     - POST /api/v2/:model with a bearer token that has `create` permissions adds an item to the DB and returns an object with the added item
+     - GET /api/v2/:model with a bearer token that has `read` permissions returns a list of :model items
+     - GET /api/v2/:model/ID with a bearer token that has `read` permissions returns a single item by ID
+     - PUT /api/v2/:model/ID with a bearer token that has `update` permissions returns a single, updated item by ID
+     - DELETE /api/v2/:model/ID with a bearer token that has `delete` permissions returns an empty object. Subsequent GET for the same ID should result in nothing found
 
 ### Visual Validation
 
@@ -136,4 +111,4 @@ We have deployed a web application that's designed to test your Server. This is 
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations

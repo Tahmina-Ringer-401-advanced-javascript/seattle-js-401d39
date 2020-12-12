@@ -27,7 +27,11 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 
 ## Today's Outline
 
-<!-- To Be Completed By Instructor -->
+1. Code Review
+1. NoSQL databases and Mongo
+1. Mongoose
+1. Lab Demo
+1. Deploying Mongo to Heroku
 
 ## Notes
 

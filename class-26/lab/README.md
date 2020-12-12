@@ -4,7 +4,7 @@
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 Create a UML diagram of the **RESTy** system on a whiteboard before you start
 
@@ -58,6 +58,6 @@ Create the RESTy application as follows:
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting React Apps Lab Submission Instructions](../../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting React Apps Lab Submission Instructions](../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
 
 > NOTE: For this assignment, **testing is not required**

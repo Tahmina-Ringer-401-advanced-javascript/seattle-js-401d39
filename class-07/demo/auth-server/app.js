@@ -2,10 +2,10 @@
 
 // 3rd Party Resources
 const express = require('express');
+const mongoose = require('mongoose');
 const users = require('./users.js');
 const basicAuth = require('./basic-auth-middleware.js');
 const bearerAuth = require('./bearer-auth-middleware.js');
-const oauth = require('./oauth-middleware.js');
 
 // Prepare the express app
 const app = express();
@@ -26,17 +26,15 @@ app.post('/signup', (req, res) => {
 
 // http post :3000/signin -a john:foo
 app.post('/signin', basicAuth, (req, res) => {
-  res.status(200).send(req.token);
-});
-
-app.get('/oauth', oauth, (req, res) => {
-  res.status(200).send(req.token);
+  res.status(200).send(req.user);
 });
 
 app.get('/user', bearerAuth, (req, res) => {
   res.status(200).json(req.user);
 });
 
-
-app.listen(3000, () => console.log('server up'));
-
+mongoose.connect('mongodb://localhost:27017/auth', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(3000, () => console.log('server up'));
+  })
+  .catch(e => console.error('Could not start server', e.message));

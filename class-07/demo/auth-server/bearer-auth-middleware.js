@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
   let token = req.headers.authorization.split(' ').pop();
 
   // Notice that here, we're catching the errors from the user model.
-  users.authenticateToken(token)
+  users.authenticateWithToken(token)
     .then(validUser => {
       req.user = validUser;
       next();

@@ -4,11 +4,15 @@
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
-
 Create a UML diagram of the authentication system on a whiteboard before you start
 
-> Create a new repository for this project, called 'basic-auth'
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
+1. Create a new repository called `basic-auth`
+1. Copy the files from within the `starter-code` folder of your class repository into your new repo as a starting point
+1. Work in a new branch called `dev`, created from `main`
+1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
+   - You will deploy from your `main` branch to a new app at Heroku
+   - You will add a link to the PR that you merged in your README for grading purposes
 
 ## Business Requirements
 
@@ -36,7 +40,7 @@ Today, we begin the first of a 3-Phase build of an authentication system, writte
 
 ## Technical Requirements / Notes
 
-> You have been supplied a "monolithic" express server which fulfills the above requirements. To complete the work for this phase, refactor the provided server using best practices, modularizing the code and providing tests, as follows:
+> You have been supplied a "monolithic" express server in the `starter-code` folder which fulfills the above requirements. To complete the work for this phase, refactor the provided server using best practices, modularizing the code and providing tests, as follows:
 
 ### Basic Server
 
@@ -97,4 +101,4 @@ We have deployed a web application that's designed to test your API. This is a g
 
 ## Assignment Submission Instructions
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations

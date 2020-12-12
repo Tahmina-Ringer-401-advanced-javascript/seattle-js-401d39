@@ -23,7 +23,9 @@
     "express": "^4.17.1",
     "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.7",
     "morgan": "^1.9.1",
-    "superagent": "^5.1.3"
+    "superagent": "^5.1.3",
+    "supergoose": "^0.2.6"
   }
 }

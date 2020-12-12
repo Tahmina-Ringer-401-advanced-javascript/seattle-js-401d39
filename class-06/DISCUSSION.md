@@ -34,6 +34,5 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 - [Securing Passwords](https://thehackernews.com/2014/04/securing-passwords-with-bcrypt-hashing.html){:target="_blank"}
 - [Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication){:target="_blank"}
-- [Intro to JWT](https://jwt.io/introduction/){:target="_blank"}
 - [OWASP auth cheatsheet](https://www.owasp.org/index.php/Authentication_Cheat_Sheet){:target="_blank"}
 - [bcrypt docs](https://www.npmjs.com/package/bcrypt){:target="_blank"}

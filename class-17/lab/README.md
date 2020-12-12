@@ -6,7 +6,7 @@ In this lab, we'll be using a database to save our notes (persistence). You will
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'mongo' and continue to work in your 'notes' repository.
 
@@ -95,4 +95,4 @@ Extend your tests on the "notes" library to assert that it is now saving to the 
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations

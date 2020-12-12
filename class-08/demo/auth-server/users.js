@@ -1,87 +1,61 @@
 'use strict';
 
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-let SECRET = process.env.SECRET || "myserverhasfleas";
+const SECRET = "secretstuff";
 
-let db = {};
+const users = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true, default: 'user', enum: ['user', 'editor', 'admin'] },
+}, { toJSON: { virtuals: true } }); // What would this do if we use this instead of just });
 
-let users = {};
-
-let roles = {
-  user: ['read'],
-  editor: ['read', 'create', 'update'],
-  admin: ['read', 'create', 'update', 'delete']
-}
-
-// Because we're using async bcrypt, this function needs to return a value or a promise rejection
-users.save = async function (record) {
-
-  if (!db[record.username]) {
-    // Hash the password and save it to the user
-    record.password = await bcrypt.hash(record.password, 5)
-
-    // Create a new user
-    db[record.username] = record;
-
-    return record;
-
+// Adds a virtual field to the schema. We can see it, but it never persists
+// So, on every user object ... this.token is now readable!
+users.virtual('token').get(function () {
+  let tokenObject = {
+    username: this.username,
   }
+  return jwt.sign(tokenObject, SECRET)
+});
 
-  return Promise.reject();
-}
+users.virtual('capabilities').get(function () {
+  let acl = {
+    user: ['read'],
+    writer: ['read', 'create'],
+    editor: ['read', 'create', 'update'],
+    admin: ['read', 'create', 'update', 'delete']
+  };
+  return acl[this.role];
+});
 
-// Because we're using async bcrypt, this function needs to return a value or a promise rejection
-users.authenticateBasic = async function (user, pass) {
-
-  try {
-    let valid = await bcrypt.compare(pass, db[user].password);
-
-    console.log(valid, db[user]);
-    if (valid && db[user]) {
-      return db[user];
-    }
-    else {
-      return Promise.reject();
-    }
-  } catch (e) { return Promise.reject(); }
-
-  // let valid = await bcrypt.compare(pass, db[user].password);
-  // return valid ? db[user] : Promise.reject();
-}
-
-// What happens if there's an error?
-// Notice the try/catch block. The 'catch' will handle errors and it bubbles it up to the caller as well
-users.authenticateToken = async function (token) {
-  try {
-    let tokenObject = jwt.verify(token, SECRET);
-
-    if (db[tokenObject.username]) {
-      // Resolve the promise with an object representing the user
-      // In this case, just what's in the token, but it could be the whole thing if you choose
-      // Note that our middleware needs the role/capabilities
-      return Promise.resolve(tokenObject);
-    }
-    else {
-      return Promise.reject();
-    }
-  } catch (e) { return Promise.reject(); }
-
-  // let tokenObject = jwt.verify(token, SECRET);
-  // return users[tokenObject.username] ? Promise.resolve(tokenObject) : Promise.reject();
-
-}
-
-users.generateToken = function (user) {
-  let userData = {
-    username: user.username,
-    capabilities: roles[user.role]
+users.pre('save', async function () {
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
-  let token = jwt.sign(userData, SECRET)
-  return token;
+});
+
+// BASIC AUTH
+users.statics.authenticateBasic = async function (username, password) {
+  const user = await this.findOne({ username })
+  const valid = await bcrypt.compare(password, user.password)
+  if (valid) { return user; }
+  throw new Error('Invalid User');
 }
 
-users.list = () => db;
+// BEARER AUTH
+users.statics.authenticateWithToken = async function (token) {
+  try {
+    const parsedToken = jwt.verify(token, SECRET);
+    const user = this.findOne({ username: parsedToken.username })
+    if (user) { return user; }
+    throw new Error("User Not Found");
+  } catch (e) {
+    throw new Error(e.message)
+  }
+}
 
-module.exports = users;
+
+module.exports = mongoose.model('users', users);

@@ -1,74 +1,53 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-let SECRET = process.env.SECRET || "myserverhasfleas";
+// We need this to "sign" the token (when we create it in the virtual)
+// and when we "verify" it in the validate method
+// (probably belongs in .env)
+const SECRET = "secretstuff";
 
-let db = {};
+const users = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+}, { toJSON: { virtuals: true } });
 
-let users = {};
-
-// Because we're using async bcrypt, this function needs to return a value or a promise rejection
-users.save = async function (record) {
-
-  if (!db[record.username]) {
-    // Hash the password and save it to the user
-    record.password = await bcrypt.hash(record.password, 5)
-
-    // Create a new user
-    db[record.username] = record;
-
-    return record;
-
+// Adds a virtual field to the schema. We can see it, but it never persists
+// So, on every user object ... this.token is now readable!
+users.virtual('token').get(function () {
+  let tokenObject = {
+    username: this.username,
   }
+  return jwt.sign(tokenObject, SECRET)
+});
 
-  return Promise.reject();
+users.pre('save', async function () {
+  if (this.isModified('password')) {
+    this.password = bcrypt.hash(this.password, 10);
+  }
+});
+
+// BASIC AUTH
+users.statics.authenticateBasic = async function (username, password) {
+  const user = await this.findOne({ username })
+  const valid = await bcrypt.compare(password, user.password)
+  if (valid) { return user; }
+  throw new Error('Invalid User');
 }
 
-// Because we're using async bcrypt, this function needs to return a value or a promise rejection
-users.authenticateBasic = async function (user, pass) {
-
+// BEARER AUTH
+users.statics.authenticateWithToken = async function (token) {
   try {
-    let valid = await bcrypt.compare(pass, db[user].password);
-
-    console.log(valid, db[user]);
-    if (valid && db[user]) {
-      return db[user];
-    }
-    else {
-      return Promise.reject();
-    }
-  } catch (e) { return Promise.reject(); }
-
-  // let valid = await bcrypt.compare(pass, db[user].password);
-  // return valid ? db[user] : Promise.reject();
+    const parsedToken = jwt.verify(token, SECRET);
+    const user = this.findOne({ username: parsedToken.username })
+    if (user) { return user; }
+    throw new Error("User Not Found");
+  } catch (e) {
+    throw new Error(e.message)
+  }
 }
 
-// What happens if there's an error?
-// Notice the try/catch block. The 'catch' will handle errors and it bubbles it up to the caller as well
-users.authenticateToken = async function (token) {
-  try {
-    let tokenObject = jwt.verify(token, SECRET);
 
-    if (db[tokenObject.username]) {
-      return Promise.resolve(tokenObject);
-    }
-    else {
-      return Promise.reject();
-    }
-  } catch (e) { return Promise.reject(); }
-
-  // let toekObjecgt = jwt.verify(token, SECRET);
-  // return users[obj.username] ? Promise.resolve(tokenObject) : Promise.reject();
-
-}
-
-users.generateToken = function (user) {
-  let token = jwt.sign({ username: user.username }, SECRET)
-  return token;
-}
-
-users.list = () => db;
-
-module.exports = users;
+module.exports = mongoose.model('users', users);

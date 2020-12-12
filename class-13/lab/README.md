@@ -8,7 +8,7 @@ In this final phase, we'll be building out the queue itself, getting our vendors
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'queue' and continue to work in your 'caps' repository.
 
@@ -131,4 +131,4 @@ function delivered(payload) {
 
 ## Assignment Submission Instructions
 
-Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations

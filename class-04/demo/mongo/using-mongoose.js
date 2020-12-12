@@ -1,37 +1,45 @@
 'use strict';
 
+// lets us access the env variables
+require('dotenv').config();
+
+// brings in the mongoose library
 const mongoose = require('mongoose');
-const Food = require('./models/food-model');
 
-const MONGOOSE_URI = 'mongodb://localhost:27017/food';
+// brings in the food model
+const FoodCollection = require('./models/food-collection');
 
-mongoose.connect(MONGOOSE_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// new instance of my FoodCollection
+const foodInstance = new FoodCollection();
 
-const doDataStuff = async () => {
+// const MONGOOSE_URI = 'mongodb://localhost:27017/food';
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
 
+// connect to mongoose
+mongoose.connect(process.env.MONGOOSE_URI, options);
+
+// create an async function
+const doDataStuff = async() => {
   let carrot = {
-    name: 'Carrots',
+    name: 'Carrot',
     calories: 25,
     type: 'VEGETABLE'
   };
 
+  // save into the collection
+  let newFood = await foodInstance.create(carrot);
+  console.log('Food Created', newFood);
 
-  // Creating a resource always returns the thing that got created
-  let food = new Food(carrot);
-  await food.save()
-  console.log('Food Created', food);
-
-  // Getting one, just gives you an object that is the one
-  let oneFood = await Food.findById(food.id);
+  // get one food
+  let oneFood = await foodInstance.get(foodInstance._id);
   console.log('One Food', oneFood);
 
-  // Getting all ... an array!
-  let allFood = await Food.find({});
+  // get all things from a collection
+  let allFood = await foodInstance.get();
   console.log('All Food', allFood);
 
-  // Disconnect from Mongo
+  // discounnect from Mongo
   mongoose.disconnect();
-
-};
+}
 
 doDataStuff();

@@ -6,7 +6,7 @@ In this phase, we'll be connecting our application to an API so that our list wi
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 > Building off of your previous day's branch, create a new branch for today called 'custom-hooks' and continue to work in your 'todo' repository.
 
@@ -41,7 +41,7 @@ Implementation Requirements
 - API
   - You have previously built a working, and deployed API server that handles data models such as `categories` and `products`
   - Add a new data model for "To Do" items as noted in the Business Requirements document, and deploy it to Heroku
-  
+
 - Hooks:
   - Use the `useEffect()` hook to pre-load the To Do Items from the API on application start
   - Replace the current form change/submit handlers with the `useForm()` custom hook to manage the "Add Item" form
@@ -69,4 +69,4 @@ Implementation Requirements
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting React Apps Lab Submission Instructions](../../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations
+Refer to the the [Submitting React Apps Lab Submission Instructions](../../reference/submission-instructions/labs/react-apps.md) for the complete lab submission process and expectations

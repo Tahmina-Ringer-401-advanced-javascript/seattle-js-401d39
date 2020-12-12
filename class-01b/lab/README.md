@@ -84,4 +84,4 @@ Now, we're going to complete the "real" deployment process
 
 In Canvas, submit a link to your completed `README.md` file from the `dev` branch.  Your grader will make any notes to you in the PR itself.
 
- Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for a review of the complete lab submission process and expectations
+ Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for a review of the complete lab submission process and expectations

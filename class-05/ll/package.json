@@ -1,0 +1,21 @@
+{
+  "name": "linked-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --verbose",
+    "watch": "jest --coverage --verbose --watchAll"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "22.4.4"
+  },
+  "devDependencies": {
+    "handlebars": "4.5.0"
+  }
+}

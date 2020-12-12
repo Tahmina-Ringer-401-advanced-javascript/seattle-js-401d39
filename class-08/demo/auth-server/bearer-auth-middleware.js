@@ -12,9 +12,8 @@ module.exports = (req, res, next) => {
   let token = req.headers.authorization.split(' ').pop();
 
   // Notice that here, we're catching the errors from the user model.
-  users.authenticateToken(token)
+  users.authenticateWithToken(token)
     .then(validUser => {
-      // Given a valid user, add it to the request object so that other middleware/request handlers can see and evaluate the user
       req.user = validUser;
       next();
     })

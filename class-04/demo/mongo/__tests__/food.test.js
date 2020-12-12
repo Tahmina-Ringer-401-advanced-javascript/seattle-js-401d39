@@ -32,3 +32,24 @@ describe('Food Model', () => {
       });
   });
 });
+
+
+
+// "mongodb+srv://<username>:<password>@cluster0.wdmss.mongodb.net/<database-name>"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

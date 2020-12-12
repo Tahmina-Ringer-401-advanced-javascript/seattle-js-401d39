@@ -2,7 +2,7 @@
 
 While **Authentication** answers the question "Who are you?" ... or more specifically "Are you who you say you are?", **Authorization** takes the next step and asks "Are you allowed to do the thing you're asking to do?"
 
-Given a proper and valid user with a set of permissions, we can grant or restict access to anything in our server.
+Given a proper and valid user with a set of permissions, we can grant or restrict access to anything in our server.
 
 ## Learning Objectives
 

@@ -1,98 +1,155 @@
 # LAB: Data Modeling
 
-Notesy Phase 3: Continue working on a multi-day build of a command-line (Terminal-based) note taking application.
+Dynamic API Phase 3: Add Persistence (Database) to your API
 
-In this lab, we'll be using a database to save our notes (persistence). You will use the Mongo NoSQL database with a Mongoose Schema and Data Model to implement CRUD functionality to your note taking application
+> Today's lab adds no new requirements to the API server. Our goal today is to swap out the in-memory data models for Mongo database models. You should consider this a "refactor" of your previous assignment, but treat this as a new build -- do not simply copy your previous files and start working. Rebuild the server, re-asserting your knowledge of how it works, how it's architected, and how to operate it.
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
-
-> Building off of your previous day's branch, create a new branch for today called 'mongo' and continue to work in your 'notes' repository.
-
-Your app needs a new dependency today: **mongoose**
-
-- `npm i mongoose`
-- Remember to start your mongo server: `mongod --dbpath=/Users/path/to/data/db`
-
-## Business Requirements
-
-Refer to the [Notesy Overview](../../apps-and-libraries/notesy/README.md) for a complete review of the application, including Business and Technical requirements along with the development roadmap.
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
+1. Create a new repository called `api-server`
+1. Work in a new branch called `dev`, created from `main`
+1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
+   - You will deploy from your `main` branch to a new app at Heroku
+   - You will add a link to the PR that you merged in your README for grading purposes
 
 ## Phase 3 Requirements
 
-We will be extending the functionality of the notes application by adding a persistence layer to allow users to save notes to a database, organize them into categories, view, and delete them.
+Build a REST API using Express, by creating a proper series of endpoints that perform CRUD operations on a **Mongo Database**, using the REST standard
 
-- As a user, I want my notes to be saved in a database so that I can retrieve them later.
-- As a user, I want to categorize my notes so that I can more easily find them.
-- As a user, I want to be able to see a list of my notes so that I can manage them.
-- As a user, I want to be able to delete a note
+### Data Models
 
-### For Example
+- Create 2 Mongo data models using Mongoose, exported as Node Modules
+- Create a Collection Class that accepts a Mongoose Model into the constructor and assigns it as `this.model`
+  - This class should have the following methods defined, to perform CRUD Operations
+    - Each method should in turn call the appropriate Mongoose method for the model
+    - `create()`
+    - `get()` or `read()`
+    - `update()`
+    - `delete()`
 
-- When a user adds a new note, **save it to the database**
-  - i.e. `node notes.js -add "This is fun" --category school
-  - The application should display a confirmation message
-  - `note saved This is fun`
+> For the data models, you are free to choose your own data types and describe their fields ... For Example: person, animal, car, instrument, game
 
-- Users should be able to list notes from the database
-  - All Notes: `node notes.js --list`
-  - Notes in a category: `node notes.js --list school`
+### Routes
 
-    ```bash
-    apps/notesy $ node notes.js --list
+In your express server, create a route module for each data model that you've created. Within the router module, create REST route handlers for each of the REST Methods that properly calls the correct CRUD method from the matching data model.
 
-    Do your homework
-    Category: school  ID: 5eab5d440caea5493833c65f
-    --------------------------------------------------
-    Drive carefully
-    Category: life  ID: 5eab5d609dbdbb494bc70c21
-    --------------------------------------------------
-    ```
+> For these examples, we'll use 'food`
 
-- Users should be able to delete a single note
-  - Send the --delete argument, with the id of the note to delete
+#### Add a Record
 
-    ```bash
-    node notes.js --delete 5eab650143bfc84e595b8eaa`
-    Deleted Note 5eab650143bfc84e595b8eaa
-    ```
+- CRUD Operation: Create
+- REST Method: POST
+- Path: /food
+- Input: JSON Object in the Request Body
+- Returns: The record that was added to the database.
+  - You must generate an ID and attach it to the object
+  - You should verify that only the fields you define get saved as a record
 
-## Technical Requirements / Notes
+#### Get All Records
 
-### Create a Mongoose Schema called `notes`
+- CRUD Operation: Read
+- REST Method: GET
+- Path: /food
+- Returns: An array of objects, each object being one entry from your database
 
-- The `notes` schema should 2 properties
-  - text (string, required)
-  - category (string, required)
-- If you want to store (or ask for) more information
-  - Ensure that add a new property and rules for it in your schema
-  - Alter (possibly) your input class to support new command line arguments
+#### Get One Record
 
-### Add "CRUD" functionality to the `notes.js` class
+- CRUD Operation: Read
+- REST Method: GET
+- Path: /food/1
+- Returns: The object from the database, which has the id matching that which is in the path
 
-- Bring in `mongoose` as a library
-- Create a new method for each of the allowed commands
-  - Based on the payload of the command, perform the appropriate action using Mongoose methods and your notes schema
-  - `add()`
-    - Should do a .save() of a new note object with the note and the category
-  - `delete()`
-    - Should delete a record by the ID
-  - `list()`
-    - Should do a find of all notes, perhaps with a category if it was specified by the user
+#### Update A Record
 
-### Testing
+- CRUD Operation: Update
+- REST Method: PUT
+- Path: /food/1
+- Input: JSON Object in the Request Body
+- Returns: The object from the database, which has the id matching that which is in the path, with the updated/changed data
+  - You should verify that only the fields you define get saved as a record
 
-Extend your tests on the "notes" library to assert that it is now saving to the database correctly
+#### Delete A Record
 
-- You'll need the `supergoose` library to "mock" mongo (so you don't save test data to your real database)
-- Test that after an `add()`:
-  - The schema returned you an object with an ID
-  - Assert that a `schema.find({id})` can see the directly record in the database
-- Test that after doing a `delete()` that you can no longer see the note in a `list()`
-  - Assert that you can do a `schema.find({id})` and see that the record is no longer in the database
-- Test that after the user performs a `--list` action that the expected records are returned to the method.
+- CRUD Operation: Destroy
+- REST Method: DELETE
+- Path: /food/1
+- Returns: The record from the database as it exists after you delete it (i.e. `null`)
 
-### Assignment Submission Instructions
+### Stretch Goal
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+Currently, as you add new models (imagine a system with 100 or more data models), you need to continually build new routes to use each model. Given that the code in the route modules is virtually identical (save for the `require()` of the correct data model), we should find a way to DRY this system.
+
+- Create a new route module called `v1` as a copy of one of your other, working routes
+- `require()` and `use()` this new router in your server
+  - Assign the `/api/v1` prefix to these routes.
+- Devise a way that you can `require()` the correct data model file based on the route
+  - i.e.
+    - <http://localhost:3000/api/v1/clothes> should require and use the file `models/clothes.js`
+    - <http://localhost:3000/api/v1/food> should require and use the file `models/food.js`
+  - Hint: use a route parameter along with middleware ... you might need to do some research
+- Once you have this working, delete your other (now no longer needed) route modules and the references to them in your server
+
+### Implementation Notes
+
+REMINDER: Your app needs a new dependency today: **mongoose**
+
+- `npm i mongoose`
+- `npm i @code-fellows/supergoose` (needed for testing)
+- Remember to start your mongo server: `mongod --dbpath=/Users/path/to/data/db`
+
+- Create an express server with the following proposed structure
+
+```text
+├── .gitignore
+├── .eslintrc.json
+├── __tests__
+│   ├── server.test.js
+│   ├── logger.test.js
+├── src
+│   ├── error-handlers
+│   │   ├── 404.js
+│   │   ├── 500.js
+│   ├── middleware
+│   │   ├── logger.js
+│   │   ├── validator.js
+│   ├── models
+│   │   ├── data-collection-class.js
+│   │   ├── food.js
+│   │   ├── clothes.js
+│   ├── routes
+│   │   ├── food.js
+│   │   ├── clothes.js
+│   ├── server.js
+├── index.js
+└── package.json
+```
+
+- In your server.js, `require()` your router modules, and `use()` them
+- In your routers
+  - `require()` the correct data model
+  - `require()` the collection class
+  - Make a new instance of the collection, using the model as a parameter
+  - Your routes, if you followed the API pattern from your previous assignments should already be set up to call the right methods in your collection
+    - Remember, mongoose methods are asynchronous. Be sure and account for this!
+
+### Testing Requirements
+
+- Be sure to require the testing dependency "supergoose" so that your mongoose requests will function properly
+- Assert the following
+  - 404 on a bad route
+  - 404 on a bad method
+  - The correct status codes and returned data for each REST route
+    - Create a record using POST
+    - Read a list of records using GET
+    - Read a record using GET
+    - Update a record using PUT
+    - Destroy a record using DELETE
+
+### Deployment
+
+Your server must be deployed to Heroku. Please note the deployed URL in your README!
+
+## Assignment Submission Instructions
+
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
